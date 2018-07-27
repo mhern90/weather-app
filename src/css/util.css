@@ -1,10 +1,19 @@
 /* Text */
-.text-12 {font-size: 12;}
-.text-14 {font-size: 14;}
-.text-16 {font-size: 16;}
-.text-18 {font-size: 18;}
-.text-20 {font-size: 20;}
-
+.text-12 {font-size: 12px;}
+.text-14 {font-size: 14px;}
+.text-16 {font-size: 16px;}
+.text-18 {font-size: 18px;}
+.text-20 {font-size: 20px;}
+.text-60 {font-size: 60px;}
 /* Color */
 
 .bgr-light-gray {background-color: #EBEBEC;}
+
+/* padding & margins*/
+.pad-5 {padding: 5px;}
+.pad-10 {padding: 20px;}
+.pad-20 {padding: 20px;}
+
+.container-1200 {
+    max-width: 1200px;
+}
