@@ -15,10 +15,10 @@ const setIconClass = (icon) => {
 
 // destructuring - grabbing the props.icon as {icon}
 // icon will eventually become an object
-const WeatherCard = ({icon}) => {
+const WeatherCard = ({icon, showModal}) => {
     return (
-      <div className="weather-card fl w-20 pa2">
-        <div class="pa4 br2 bg-light-gray tc ba b--black-10">
+      <div onClick={showModal} className="weather-card fl w-20 pa2">
+        <div className="pa4 br2 bg-light-gray tc ba b--black-10">
           <i className={setIconClass(icon) + " text-60"}></i>
           <h2 className="temp f2 fw2">70&#176;</h2>
         </div>
