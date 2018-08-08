@@ -1,12 +1,24 @@
-export const getWeatherData = () => {
-    fetch('http://api.openweathermap.org/data/2.5/forecast?id=4887398&APPID=0b2927d00672fe1df326acbc6e5e28c3')
-        .then((response) => {
-            return response.json();
-        })
-        .then((data) => {
-            console.log(data);
-        })
-        .catch(error => console.error('Error retreiving data.'));
+export const numToDay = (num) => {
+    const dayMap = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
+    return dayMap[num];
+} 
+
+export const configureWeatherData = (data) => {
+    let weatherObject = {};
+    weatherObject.city = data.city.name;
+    weatherObject.forecast = [];
+
+    const fiveDays = data.list.slice(0, 5);
+    fiveDays.forEach(day => {
+        let dayInfo = {};
+        dayInfo.temp = Math.round(day.main.temp);
+        dayInfo.condition = day.weather[0].main.toLowerCase();
+
+        let date = new Date(day.dt_txt);
+        dayInfo.day = numToDay(date.getDay());
+        weatherObject.forecast.push(dayInfo);
+    });
+    return weatherObject;
 }
 
 export const testHelpers = () => {

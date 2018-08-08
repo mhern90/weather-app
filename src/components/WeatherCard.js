@@ -2,9 +2,9 @@ import React from 'react';
 
 const setIconClass = (icon) => {
   switch (icon) {
-    case 'sunny':
+    case 'clear':
       return 'wi wi-day-sunny yellow';
-    case 'cloudy':
+    case 'clouds':
       return 'wi wi-day-cloudy light-silver';
     case 'rain':
       return 'wi wi-day-rain light-blue';
@@ -15,12 +15,13 @@ const setIconClass = (icon) => {
 
 // destructuring - grabbing the props.icon as {icon}
 // icon will eventually become an object
-const WeatherCard = ({icon, showModal}) => {
+const WeatherCard = ({icon, temp, day, showModal}) => {
     return (
       <div onClick={showModal} className="weather-card fl w-20 pa2">
         <div className="pa4 br2 bg-light-gray tc ba b--black-10">
+          <h2 className="temp f2">{day}</h2>
           <i className={setIconClass(icon) + " text-60"}></i>
-          <h2 className="temp f2 fw2">70&#176;</h2>
+          <h2 className="temp f2 fw2">{temp}&#176;</h2>
         </div>
       </div>
     )
