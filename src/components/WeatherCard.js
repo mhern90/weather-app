@@ -19,9 +19,11 @@ const WeatherCard = ({icon, temp, day, showModal}) => {
     return (
       <div onClick={showModal} className="weather-card fl w-20 pa2">
         <div className="pa4 br2 bg-light-gray tc ba b--black-10">
-          <h2 className="temp f2">{day}</h2>
-          <i className={setIconClass(icon) + " text-60"}></i>
-          <h2 className="temp f2 fw2">{temp}&#176;</h2>
+          <div className="pt4">
+            <i className={setIconClass(icon) + " text-60"}></i>
+          </div>
+          <h2 className="temp f2 fw4 ma0 pt4">{day}</h2>
+          <h3 className="temp f2 fw2 ma0">{temp}&#176;</h3>
         </div>
       </div>
     )

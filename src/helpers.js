@@ -5,10 +5,20 @@ export const numToDay = (num) => {
 
 export const configureWeatherData = (data) => {
     let weatherObject = {};
+    const daysList = data.list;
+    const weekStart = new Date(daysList[0].dt_txt).toLocaleString('en-En', { weekday: "long", month: "long", day: "numeric" });
+    const weekEnd = new Date(daysList[daysList.length - 1].dt_txt).toLocaleString('en-En', { weekday: "long", month: "long", day: "numeric" });
     weatherObject.city = data.city.name;
     weatherObject.forecast = [];
-
-    const fiveDays = data.list.slice(0, 5);
+    weatherObject.weekStart = weekStart;
+    weatherObject.weekEnd = weekEnd;
+    const fiveDays = [];
+    fiveDays.push(data.list[0]);
+    for (var i = 8; i < data.list.length; i+=8) {
+        fiveDays.push(data.list[i]);
+    }
+    
+    data.list.slice(0, 5);
     fiveDays.forEach(day => {
         let dayInfo = {};
         dayInfo.temp = Math.round(day.main.temp);

@@ -11,12 +11,13 @@ export default class WeatherApp extends Component {
     super()
     this.state = {
       weather: {},
+      hourly : [],
       modalShow : false
     }
   }
 
   componentDidMount() {
-    fetch('http://api.openweathermap.org/data/2.5/forecast?id=4887398&units=imperial&APPID=0b2927d00672fe1df326acbc6e5e28c3')
+    fetch('http://api.openweathermap.org/data/2.5/forecast?id=4887398&units=imperial&APPID=d3fb98537841935db142bb370fd3e1c2')
       .then((response) => {
         return response.json();
       })
@@ -49,8 +50,9 @@ export default class WeatherApp extends Component {
       return (
           <div id="weatherApp" className="avenir bg-white cf pa4">
             <div className="container-1200 center bg-near-white cf pa4 pb6 ba b--black-10 shadow-4">
-              <h1 className="normal tc f1 mid-gray pb1">Weekly Weather Forcast</h1>
-              <h2 className="normal tc f2 black pb5">{weather.city}</h2>
+              <h1 className="normal tc f1 mid-gray pb1 ma0">Weekly Weather Forcast</h1>
+              <h2 className="normal tc f2 black pb3 ma0">{weather.city}</h2>
+              <p className="normal tc f3 black pb5">{weather.weekStart} - {weather.weekEnd}</p>
               <div className="weather-week-container">
                 {
                   forecast.map((day, i) => {
