@@ -3,6 +3,7 @@ import '../css/weatherApp.css';
 import '../css/util.css';
 import './weather-icons.min.css';
 import WeatherCard from '../components/WeatherCard';
+import SearchBox from '../components/SearchBox';
 import HourlyForecastModal from '../components/HourlyForecastModal';
 import * as helpers from '../helpers';
 
@@ -17,7 +18,6 @@ export default class WeatherApp extends Component {
       selectedDay : 'Mon'
     }
 
-    this.retreiveWeatherData = this.retreiveWeatherData.bind(this)
   }
 
   componentDidMount() {
@@ -33,14 +33,14 @@ export default class WeatherApp extends Component {
         this.setState({ hourly: hourlyForecast });
         this.setState({ weather: weatherObject });
       } else {
-        this.retreiveWeatherData();
+        this.retreiveWeatherData(false);
       }
     } else {
-      this.retreiveWeatherData();
+      this.retreiveWeatherData(false);
     }
   }
 
-  retreiveWeatherData = () => {
+  retreiveWeatherData = (isSearching) => {
     helpers.dateCache(); // cache current date
     const location = this.state.location;
     fetch('http://api.openweathermap.org/data/2.5/forecast?q='+location+ ',us&units=imperial&APPID=d3fb98537841935db142bb370fd3e1c2')
@@ -49,13 +49,22 @@ export default class WeatherApp extends Component {
       })
       .then((data) => {
         // return simple weather object
-        localStorage.setItem("rawWeatherData", JSON.stringify(data));
-        const weatherObject = helpers.configureWeatherData(data);
-        const hourlyForecast = helpers.configureHourly(data);
-        this.setState({ hourly: hourlyForecast });
-        this.setState({ weather: weatherObject });
+        if (data.cod === '404') {
+          helpers.handleError(document.getElementById('citySearch'), 'Invalid City Name')
+        } else {
+          if (isSearching) {
+            document.getElementById('citySearch').value = '';
+          }
+          localStorage.setItem("rawWeatherData", JSON.stringify(data));
+          const weatherObject = helpers.configureWeatherData(data);
+          const hourlyForecast = helpers.configureHourly(data);
+          this.setState({ hourly: hourlyForecast });
+          this.setState({ weather: weatherObject });
+        }
       })
-      .catch(error => console.error('Error retreiving data.'));
+      .catch(error => {
+        console.log(error);
+      });
   }
 
   onCardClick(selected) {
@@ -72,8 +81,22 @@ export default class WeatherApp extends Component {
   }
 
   getSelectedDay(day) {
-    console.log(day)
     this.setState({ selectedDay : day})
+  }
+
+  onSearchChange(e) {
+    const input = e.target;
+    helpers.removeError(input);
+  }
+
+  handleSearch() {
+    const searchVal = document.getElementById('citySearch').value;
+    this.setState({ 
+      location : searchVal,
+    }, () => {
+        this.retreiveWeatherData(true);    
+    });
+   
   }
 
   render() {
@@ -87,7 +110,13 @@ export default class WeatherApp extends Component {
           <div id="weatherApp" className="avenir bg-white cf pa4">
             <div className="container-1200 center bg-near-white cf pa4 pb6 ba b--black-10 shadow-4">
               <h1 className="normal tc f1 mid-gray pb1 ma0">Weekly Weather Forcast</h1>
-              <h2 className="normal tc f2 black pb3 ma0">{weather.location}</h2>
+              <h2 className="normal tc f2 black pb3 ma0">{weather.city}</h2>
+              <SearchBox 
+                searchId={"citySearch"}
+                clickEvents={this.handleSearch.bind(this)} 
+                hasError={true}
+                inputChangeEvents={this.onSearchChange.bind(this)}
+              />
               <p className="normal tc f3 black pb5">{weather.weekStart} - {weather.weekEnd}</p>
               <div className="weather-week-container">
                 {
