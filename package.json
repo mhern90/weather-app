@@ -2,7 +2,7 @@
   "name": "weather-app",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://hmern90.github.io/weather-app",
+  "homepage": "https://mhern90.github.io/weather-app",
   "dependencies": {
     "gh-pages": "^2.0.1",
     "react": "^16.4.1",

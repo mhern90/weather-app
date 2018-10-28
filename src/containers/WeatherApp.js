@@ -43,7 +43,7 @@ export default class WeatherApp extends Component {
   retreiveWeatherData = (isSearching) => {
     helpers.dateCache(); // cache current date
     const location = this.state.location;
-    fetch('http://api.openweathermap.org/data/2.5/forecast?q='+location+ ',us&units=imperial&APPID=d3fb98537841935db142bb370fd3e1c2')
+    fetch('https://api.openweathermap.org/data/2.5/forecast?q='+location+ ',us&units=imperial&APPID=d3fb98537841935db142bb370fd3e1c2')
       .then((response) => {
         return response.json();
       })
