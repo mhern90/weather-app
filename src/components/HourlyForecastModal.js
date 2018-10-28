@@ -7,16 +7,6 @@ const HourlyForecastModal = ({ show, hideModal, hourly, selectedDay}) => {
     const viewDayObj = hourly.find((el) => {
         return el.day === selectedDay;
     });
-    // const viewDay = Object.keys(viewDayObj) ? Object.keys(viewDayObj)[0] : 'Mon';
-
-    // let hourArr = Array.from(viewDayObj);
-
-    // for (const key in viewDayObj) {
-    //     if (viewDayObj.hasOwnProperty(key)) {
-    //        hourArr.push(key);
-    //         degArr.push(viewDayObj[key])
-    //     }
-    // }
 
     return (
         <div className={modalShow}>

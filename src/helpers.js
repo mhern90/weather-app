@@ -1,3 +1,5 @@
+/* data formatting */
+
 export const numToDay = (num) => {
     const dayMap = ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'];
     return dayMap[num];
@@ -63,7 +65,6 @@ export const configureWeatherData = (data) => {
         dayInfo.day = numToDay(date.getDay());
         weatherObject.forecast.push(dayInfo);
     });
-    console.log(weatherObject);
     return weatherObject;
 }
 
@@ -106,24 +107,28 @@ export const configureHourly = (data) => {
 
         currentDay.hours.push(element.time);
         currentDay.degrees.push(Math.round(element.main.temp));
-
-        // if (prevDay === '' ) {
-        //     prevDay = element.day;
-        //     currentDay[element.day] = {};
-        // }
-
-        // if (prevDay !== element.day) {
-        //     prevDay = element.day;
-        //     weeklyData.push(currentDay);
-        //     currentDay = {};
-        //     currentDay[element.day] = {};
-        // }
-
-        // currentDay[element.day][element.time] = Math.round(element.main.temp);
-
-        
     });
 
     console.log(weeklyData);
     return weeklyData;
+}
+
+/* Error Handling */
+
+export const handleError = (input, message) => {
+    const inputId = input.id,
+        errorBox = document.querySelector('.error-message[data-error=' + inputId+']');
+
+    input.classList.remove('bn');
+    input.classList.add('b--dark-red');
+    errorBox.textContent = message;
+}
+
+export const removeError = (input) => {
+    const inputId = input.id,
+        errorBox = document.querySelector('.error-message[data-error=' + inputId + ']');
+
+    input.classList.add('bn');
+    input.classList.remove('b--dark-red');
+    errorBox.textContent = '';
 }
