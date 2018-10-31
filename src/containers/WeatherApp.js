@@ -32,6 +32,7 @@ export default class WeatherApp extends Component {
 
         this.setState({ hourly: hourlyForecast });
         this.setState({ weather: weatherObject });
+        this.setState({ selectedDay: hourlyForecast[0].day});
       } else {
         this.retreiveWeatherData(false);
       }
@@ -60,6 +61,7 @@ export default class WeatherApp extends Component {
           const hourlyForecast = helpers.configureHourly(data);
           this.setState({ hourly: hourlyForecast });
           this.setState({ weather: weatherObject });
+          this.setState({ selectedDay: hourlyForecast[0].day });
         }
       })
       .catch(error => {
@@ -109,15 +111,15 @@ export default class WeatherApp extends Component {
       return (
           <div id="weatherApp" className="avenir bg-white cf pa4">
             <div className="container-1200 center bg-near-white cf pa4 pb6 ba b--black-10 shadow-4">
-              <h1 className="normal tc f1 mid-gray pb1 ma0">Weekly Weather Forcast</h1>
-              <h2 className="normal tc f2 black pb3 ma0">{weather.city}</h2>
+              <h1 className="normal tc f1-ns f3 mid-gray pb1 ma0">Weekly Weather Forcast</h1>
+              <h2 className="normal tc f2-ns f4 black pb3 ma0">{weather.city}</h2>
               <SearchBox 
                 searchId={"citySearch"}
                 clickEvents={this.handleSearch.bind(this)} 
                 hasError={true}
                 inputChangeEvents={this.onSearchChange.bind(this)}
               />
-              <p className="normal tc f3 black pb5">{weather.weekStart} - {weather.weekEnd}</p>
+              <p className="normal tc f3-ns f4 black pb5">{weather.weekStart} - {weather.weekEnd}</p>
               <div className="weather-week-container">
                 {
                   forecast.map((day, i) => {

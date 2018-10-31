@@ -77,6 +77,7 @@ export const dateCache = () => {
 
 export const configureHourly = (data) => {
     let weatherData = data.list,
+        arrLen = weatherData.length,
         weeklyData = [],
         prevDay = '',
         currentDay = {};
@@ -87,7 +88,7 @@ export const configureHourly = (data) => {
         weatherData[index].time = timeStrFormatter(element.dt_txt.split(' ')[1]);
     });
 
-    weatherData.forEach((element) => {
+    weatherData.forEach((element, i) => {
         // initialize
         if (prevDay === '') {
             prevDay = element.day;
@@ -96,7 +97,7 @@ export const configureHourly = (data) => {
             currentDay.degrees = [];
         }
 
-        if (prevDay !== element.day) {
+        if (prevDay !== element.day || i === (arrLen - 1)) {
             prevDay = element.day;
             weeklyData.push(currentDay);
             currentDay = {};

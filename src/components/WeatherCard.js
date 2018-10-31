@@ -17,7 +17,7 @@ const setIconClass = (icon) => {
 // icon will eventually become an object
 const WeatherCard = ({clickEvents, icon, temp, day}) => {
     return (
-      <div onClick={clickEvents} className="weather-card fl w-20 pa2">
+      <div onClick={clickEvents} className="weather-card fl w-20-l w-33-m w-100 pa2">
         <div className="pa4 br2 bg-light-gray tc ba b--black-10">
           <div className="pt4">
             <i className={setIconClass(icon) + " text-60"}></i>
