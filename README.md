@@ -6,4 +6,4 @@ Features:
  - Search weather by location (USA cities only)
 
 Link To App:
-<https://hmern90.github.io/weather-app>
+<https://mhern90.github.io/weather-app>
